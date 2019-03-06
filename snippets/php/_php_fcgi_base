@@ -1,0 +1,19 @@
+# Do not include this manually
+
+# Correctly handle request like /test.php/foo/blah.php or /test.php/
+# TODO(mikroskeem): testing
+fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+
+fastcgi_index index.php;
+fastcgi_buffer_size 16k;
+fastcgi_buffers 4 16k;
+fastcgi_connect_timeout 300;
+fastcgi_read_timeout 300;
+fastcgi_send_timeout 300;
+
+fastcgi_param HTTP_PROXY ""; # https://httpoxy.org/
+fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+include fastcgi_params;
+
+# vim: ft=nginx
