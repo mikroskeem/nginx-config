@@ -1,4 +1,4 @@
-# php configuration
+# PHp configuration snippets
 
 Only PHP-FPM support over Unix sockets is provided right now.
 
