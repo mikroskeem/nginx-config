@@ -45,7 +45,9 @@ umask "${old_umask}"
 # Symlink default config
 echo ">>> Symlinking default vhost"
 if [ -f "${NGINX_DIR}"/sites-enabled/default.conf ]; then
-    echo ">>> File already present, please check '${NGINX_DIR}/sites-enabled/default.conf' manually"
+    if [ ! -L "${NGINX_DIR}"/sites-enabled/default.conf ] || [ ! "$(readlink "${NGINX_DIR}"/sites-enabled/default.conf)" = "../sites-available/default.conf" ]; then
+        echo ">>> File already present, please check '${NGINX_DIR}/sites-enabled/default.conf' manually"
+    fi
 else
     ln -s ../sites-available/default.conf "${NGINX_DIR}"/sites-enabled/default.conf
 fi
