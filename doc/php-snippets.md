@@ -18,7 +18,7 @@ You need to supply your own:
 ### Tips
 If you have file uploads, then consider setting:
 1) `fastcgi_param PHP_VALUE "upload_max_filesize = 100M \n post_max_size=105M";` - Note: PHP POST max size should always be larger than upload max filesize
-2) `client_max_body_size 105M;` - Note: this has to be bit larger than PHP's
+2) `client_max_body_size 110M;` - Note: this has to be bit larger than PHP's
 
 ### Changing Unix socket path or using TCP
 
