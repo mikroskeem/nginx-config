@@ -5,9 +5,13 @@ NGINX_DIR="/etc/nginx"
 
 check_file () {
     local f="${1}"
+    echo -n ">>> Checking if '${f}' exists... "
     if [ ! -f "${f}" ]; then
+        echo ""
         echo ">>> File '${f}' is not present, cannot continue the install!"
         exit 1
+    else
+        echo -n "OK"
     fi
 }
 
@@ -29,12 +33,22 @@ echo ">>> Generating selfsigned keys and dhparams"
 old_umask="$(umask)"
 umask 0077
 bash scripts/gen_ss.sh targetdir="${NGINX_DIR}/keys"
-openssl dhparam -out "${NGINX_DIR}"/keys/dhparams.pem 4096
+if [ -f "${NGINX_DIR}"/keys/dhparams.pem ]; then
+    # dhparams generation takes a lot of time, skip if possible but with a warning
+    echo ">>> WARNING: Using existing '${NGINX_DIR}/keys/dhparams.pem', regenerate manually using"
+    echo ">>> 'openssl dhparam -out \"${NGINX_DIR}/keys/dhparams.pem\" 4096' if you want to recreate it"
+else
+    openssl dhparam -out "${NGINX_DIR}"/keys/dhparams.pem 4096
+fi
 umask "${old_umask}"
 
 # Symlink default config
 echo ">>> Symlinking default vhost"
-ln -s ../sites-available/default.conf "${NGINX_DIR}"/sites-enabled/default.conf
+if [ -f "${NGINX_DIR}"/sites-enabled/default.conf ]; then
+    echo ">>> File already present, please check '${NGINX_DIR}/sites-enabled/default.conf' manually"
+else
+    ln -s ../sites-available/default.conf "${NGINX_DIR}"/sites-enabled/default.conf
+fi
 
 echo ""
 echo ""
