@@ -1,0 +1,27 @@
+server {
+    include snippets/listen_80.conf;
+    server_name {{ domain_name }};
+    return 301 https://{{ domain_name }}$request_uri;
+}
+
+server {
+    include snippets/listen_443.conf;
+    server_name {{ domain_name }};
+
+    ssl_certificate /etc/letsencrypt/live/{{ domain_name }}/fullchain.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ domain_name }}/chain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ domain_name }}/privkey.pem;
+
+    # --- Additional rules START
+    {% for rule in custom_rules %}
+        include snippets/{{ rule.name }}.conf; # - {{ rule.description }}
+    {% endfor }
+    # --- Additional rules END
+
+    location / {
+        include snippets/generic_reverse_proxy.conf;
+        proxy_pass https://{{ reverse_proxy_target }};
+    }
+}
+
+# vim: ft=nginx
