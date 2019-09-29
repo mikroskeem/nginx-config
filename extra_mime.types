@@ -1,3 +1,8 @@
+# Extra mimetypes what aren't defined in standard mine.types, but required by some
+# web applications
+
 types {
-application/wasm wasm;
+    application/wasm wasm;
 }
+
+# vim: ft=nginx
