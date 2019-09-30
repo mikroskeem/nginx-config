@@ -1,7 +1,10 @@
 # Do not include this manually
+# Based on:
+# - https://www.nginx.com/resources/wiki/start/topics/examples/phpfcgi/
+# - https://wiki.archlinux.org/index.php/Nginx#nginx_configuration
+# - (various I don't remember right now)
 
 # Correctly handle request like /test.php/foo/blah.php or /test.php/
-# TODO(mikroskeem): testing
 fastcgi_split_path_info ^(.+?\.php)(/.*)$;
 
 fastcgi_index index.php;
