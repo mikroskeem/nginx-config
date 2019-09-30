@@ -33,7 +33,7 @@ install -d -m 0700 "${NGINX_DIR}"/keys
 echo ">>> Generating selfsigned keys and dhparams"
 old_umask="$(umask)"
 umask 0077
-bash scripts/gen_ss.sh targetdir="${NGINX_DIR}/keys"
+bash scripts/gen_ss.sh targetdir="${NGINX_DIR}/keys" || { [ ! "${?}" -eq 2 ] && echo ">>> Failed to generate keys, cannot continue the install." && exit 1; }
 if [ -f "${NGINX_DIR}"/keys/dhparams.pem ]; then
     # dhparams generation takes a lot of time, skip if possible but with a warning
     echo ">>> WARNING: Using existing '${NGINX_DIR}/keys/dhparams.pem', regenerate manually using"
