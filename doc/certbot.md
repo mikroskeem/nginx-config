@@ -11,6 +11,8 @@ Don't forget to enable `certbot.timer` (if not already enabled)
 
 ### Changes to service file
 
+**NOTE:** `scripts/deploy_cerbot.sh` handles this for you now.
+
 As we're going to use webroot plugin, then certbot is not aware what it has to do after obtaining new certificates, so you need
 to do it yourself.
 
@@ -26,6 +28,8 @@ ExecStopPost=/bin/systemctl --no-block reload nginx.service
 That makes sure that nginx loads new certificates.
 
 ### Paths on filesystem
+
+**NOTE:** `scripts/deploy_cerbot.sh` handles this for you now.
 
 You need to create `/var/www/certbot`. It can be owned by root or whatever user, as long as it can be read by web server user.
 

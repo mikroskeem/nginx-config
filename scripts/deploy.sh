@@ -56,3 +56,4 @@ fi
 echo ""
 echo ""
 echo ">>> Initial setup done. You are free to continue setting up things by hand"
+echo ">>> You might also want to check out 'deploy_certbot.sh'"
