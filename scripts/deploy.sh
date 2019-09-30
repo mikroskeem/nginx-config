@@ -8,10 +8,11 @@ check_file () {
     echo -n ">>> Checking if '${f}' exists... "
     if [ ! -f "${f}" ]; then
         echo ""
-        echo ">>> File '${f}' is not present, cannot continue the install!"
+        echo "File '${f}' is not present!"
+        echo ">>> Cannot continue the install"
         exit 1
     else
-        echo -n "OK"
+        echo "OK"
     fi
 }
 
