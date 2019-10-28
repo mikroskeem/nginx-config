@@ -4,6 +4,13 @@
 # - https://wiki.archlinux.org/index.php/Nginx#nginx_configuration
 # - (various I don't remember right now)
 
+# Fix for potential CVE-2019-11043
+# TODO(mikroskeem): this configuration doesn't seem vulnerable if used with try_catch,
+#                   but I don't have proper time to research it right now...
+#                   Performance penalty to avoid potential RCE is better until then.
+# - https://bugs.php.net/bug.php?id=78599
+rewrite ^(.*?)\n $1;
+
 # Correctly handle request like /test.php/foo/blah.php or /test.php/
 fastcgi_split_path_info ^(.+?\.php)(/.*)$;
 
