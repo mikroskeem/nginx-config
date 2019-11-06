@@ -7,7 +7,7 @@ server {
 	include snippets/listen_80.conf;
 	server_name nginxtest.rip.ee;
 
-	return 301 https://nginxtest.rip.ee$request_uri;
+	include snippets/https_redirect.conf;
 }
 
 server {
