@@ -1,25 +1,23 @@
 # Example configuration
 
-Deployed on [nginxtest.rip.ee](https://nginxtest.rip.ee)
-
 ```
 server {
 	include snippets/listen_80.conf;
-	server_name nginxtest.rip.ee;
+	server_name domain.tld;
 
 	include snippets/https_redirect.conf;
 }
 
 server {
 	include snippets/listen_443.conf;
-	server_name nginxtest.rip.ee;
+	server_name domain.tld;
 
-	ssl_certificate /etc/letsencrypt/live/nginxtest.rip.ee/fullchain.pem;
-	ssl_trusted_certificate /etc/letsencrypt/live/nginxtest.rip.ee/chain.pem;
-	ssl_certificate_key /etc/letsencrypt/live/nginxtest.rip.ee/privkey.pem;
+	ssl_certificate /etc/letsencrypt/live/domain.tld/fullchain.pem;
+	ssl_trusted_certificate /etc/letsencrypt/live/domain.tld/chain.pem;
+	ssl_certificate_key /etc/letsencrypt/live/domain.tld/privkey.pem;
 	include snippets/full_hsts.conf;
 
-	root /var/www/html/nginxtest.rip.ee;
+	root /var/www/html/domain.tld;
 	index index.html;
 
 	location / {
