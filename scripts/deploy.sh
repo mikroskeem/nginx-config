@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -e
 
-NGINX_DIR="/etc/nginx"
+NGINX_DIR="${NGINX_DIR:-/etc/nginx}"
 
 check_file () {
-    local f="${1}"
-    echo -n ">>> Checking if '${f}' exists... "
+    f="${1}"
+    printf ">>> Checking if '%s' exists... " "%{f}"
     if [ ! -f "${f}" ]; then
         echo ""
         echo "File '${f}' is not present!"
@@ -15,6 +15,13 @@ check_file () {
         echo "OK"
     fi
 }
+
+printf ">>> nginx configuration directory is set to '%s'" "${NGINX_DIR}"
+if [ ! -d "${NGINX_DIR}" ]; then
+    echo "... which does not exist!"
+    echo ">>> Make sure you specified the correct directory"
+    exit 1
+fi
 
 # Check for required files
 check_file "${NGINX_DIR}"/mime.types
