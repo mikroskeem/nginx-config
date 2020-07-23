@@ -5,7 +5,7 @@ NGINX_DIR="${NGINX_DIR:-/etc/nginx}"
 
 check_file () {
     f="${1}"
-    printf ">>> Checking if '%s' exists... " "%{f}"
+    printf ">>> Checking if '%s' exists... " "${f}"
     if [ ! -f "${f}" ]; then
         echo ""
         echo "File '${f}' is not present!"
@@ -21,6 +21,8 @@ if [ ! -d "${NGINX_DIR}" ]; then
     echo "... which does not exist!"
     echo ">>> Make sure you specified the correct directory"
     exit 1
+else
+    echo ""
 fi
 
 # Check for required files
