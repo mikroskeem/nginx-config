@@ -1,0 +1,5 @@
+{%- if site.https_enable %}
+location / {
+    return 301 https://$server_name$request_uri;
+}
+{%- endif %}

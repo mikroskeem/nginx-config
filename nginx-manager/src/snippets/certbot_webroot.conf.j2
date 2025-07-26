@@ -1,0 +1,7 @@
+{%- if site.https_enable and acme_webroot_directory %}
+location /.well-known/acme-challenge/ {
+    default_type "text/plain";
+    try_files    $uri $uri/ =444;
+    root         {{ acme_webroot_directory }};
+}
+{%- endif %}
